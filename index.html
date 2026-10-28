@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#09121d">
+  <meta name="description" content="Независимый проект двух разработчиков, создающих бесплатные программы для повседневных задач.">
+  <title>Stanics — Independent Desktop Software</title>
+  <style>
+    :root{
+      --bg:#09121d;--bg2:#0b1724;--panel:#102031;--panel2:#142638;
+      --text:#eef5f6;--muted:#9cabb7;--line:rgba(175,210,220,.13);
+      --mint:#8decc7;--blue:#8ebcff;--orange:#f3ae80;
+      --max:1160px;--radius:23px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:100px}
+    body{margin:0;color:var(--text);font-family:Inter,"Segoe UI",Arial,sans-serif;background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
+    a{color:inherit}button{font:inherit}button,a{-webkit-tap-highlight-color:transparent}
+    a:focus-visible,button:focus-visible{outline:3px solid var(--mint);outline-offset:4px}
+    ::selection{background:var(--mint);color:var(--bg)}
+    .page{overflow:hidden;position:relative;min-height:100vh}
+    .page:before{content:"";position:absolute;z-index:0;top:30px;right:-240px;width:780px;height:740px;pointer-events:none;background:radial-gradient(circle,rgba(28,133,130,.18),transparent 68%)}
+    .container{width:min(var(--max),calc(100% - 72px));margin:auto;position:relative;z-index:1}
+    .header{position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);background:rgba(9,18,29,.86)}
+    .header-wrap{display:flex;align-items:center;justify-content:space-between;gap:26px;min-height:78px}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0}
+    .brand-mark{width:36px;height:36px;border:1px solid rgba(141,236,199,.65);color:var(--mint);border-radius:11px;display:grid;place-items:center;font-size:21px;font-weight:800;line-height:1;letter-spacing:-.08em;box-shadow:0 0 40px rgba(141,236,199,.13) inset}
+    .brand-word{font-size:17px;font-weight:850;letter-spacing:.19em}
+    .nav{display:flex;align-items:center;gap:32px;margin-left:auto}
+    .nav a{font-size:13px;font-weight:650;text-decoration:none;color:#a8b6bf;transition:color .2s}
+    .nav a:hover{color:var(--mint)}
+    .lang-switch{border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:999px;display:flex;gap:2px;padding:4px;margin-left:10px}
+    .lang-switch button{border:0;background:transparent;color:#9babb7;font-size:11px;font-weight:850;letter-spacing:.06em;padding:7px 10px;border-radius:999px;cursor:pointer;transition:background .2s,color .2s}
+    .lang-switch button[aria-pressed="true"]{background:var(--mint);color:#0b2024}
+    .hero{padding:100px 0 86px;display:grid;grid-template-columns:1.04fr .96fr;gap:62px;align-items:center;min-height:645px}
+    .eyebrow{font-size:11px;font-weight:800;letter-spacing:.21em;text-transform:uppercase;color:var(--mint);display:flex;align-items:center;gap:12px}
+    .eyebrow .line{height:1px;width:27px;background:currentColor;opacity:.72}
+    h1,h2,h3,p{margin-top:0}
+    h1{font-size:clamp(48px,5.55vw,77px);line-height:1.08;letter-spacing:-.065em;font-weight:750;margin:30px 0 25px;max-width:670px}
+    .accent{color:var(--mint)}
+    .hero-lead{font-size:17px;line-height:1.8;color:#b2c0ca;max-width:500px;margin-bottom:32px}
+    .hero-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:11px;border-radius:12px;text-decoration:none;min-height:47px;padding:0 19px;font-size:13px;font-weight:800;border:1px solid transparent;transition:transform .2s,background .2s,border-color .2s}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:var(--mint);color:#092322}
+    .btn-primary:hover{background:#b9f5dc}
+    .btn-secondary{border-color:rgba(160,195,207,.28);background:rgba(255,255,255,.024);color:#dfebee}
+    .btn-secondary:hover{border-color:rgba(141,236,199,.55);background:rgba(141,236,199,.06)}
+    .arrow{font-size:17px;font-weight:450;line-height:1}
+    .principles{margin:44px 0 0;padding:0;display:flex;gap:22px;flex-wrap:wrap;list-style:none}
+    .principles li{display:flex;gap:7px;align-items:center;color:#b4c5cf;font-size:11px;letter-spacing:.015em}
+    .tick{color:var(--mint);font-size:15px}
+    .stage{position:relative;min-width:0;padding:24px 0 18px}
+    .stage:before{content:"";position:absolute;inset:9% 0 0 7%;background:linear-gradient(127deg,rgba(141,236,199,.12),rgba(111,154,215,.03));filter:blur(40px);border-radius:90px}
+    .halo{position:absolute;inset:-26px 6% -20px 10%;border:1px solid rgba(141,236,199,.11);transform:rotate(-7deg);border-radius:35px;pointer-events:none}
+    .section{padding:92px 0;position:relative;z-index:1}
+    .section-rule{border-top:1px solid var(--line)}
+    .section-head{display:flex;justify-content:space-between;gap:32px;align-items:end;margin-bottom:39px}
+    .kicker{font-size:10px;font-weight:850;letter-spacing:.22em;color:var(--mint);margin-bottom:16px;text-transform:uppercase}
+    h2{font-size:clamp(32px,3.75vw,49px);line-height:1.17;letter-spacing:-.045em;font-weight:730;margin-bottom:0}
+    .section-explain{font-size:13px;line-height:1.7;color:var(--muted);max-width:370px;margin:0}
+    .project-card h3{font-size:21px;letter-spacing:-.025em;margin-bottom:7px}
+    .project-card p{font-size:12px;line-height:1.7;color:#a7bac5;margin-bottom:20px}
+    .about-layout{display:grid;grid-template-columns:1fr 1fr;gap:67px;align-items:center}
+    .about-copy p{color:#b0c0ca;font-size:15px;line-height:1.9;max-width:500px;margin:24px 0 0}
+    .about-cards{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+    .about-box{min-height:185px;border:1px solid var(--line);border-radius:19px;background:rgba(21,42,58,.6);padding:22px}
+    .about-box svg{width:31px;height:31px;fill:none;stroke:var(--mint);stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round;margin-bottom:24px}
+    .about-box:nth-child(2) svg{stroke:var(--blue)}
+    .about-box strong{display:block;font-size:15px;margin-bottom:8px}.about-box span{font-size:12px;color:#9eafba;line-height:1.6;display:block}
+    .support-shell{background:linear-gradient(116deg,#182d3d,#142c34 55%,#17383c);border:1px solid rgba(141,236,199,.22);border-radius:28px;padding:51px 55px;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:25px;position:relative;overflow:hidden}
+    .support-shell:after{content:"♡";position:absolute;font-size:410px;line-height:1;color:rgba(141,236,199,.045);right:-70px;top:-45px;pointer-events:none}
+    .support-shell h2{font-size:clamp(29px,3.7vw,47px);position:relative;z-index:1}
+    .support-shell p{color:#b9cecf;margin:20px 0 0;font-size:14px;line-height:1.85;max-width:520px;position:relative;z-index:1}
+    .support-state{border:1px solid rgba(141,236,199,.18);background:rgba(8,25,32,.38);border-radius:17px;padding:24px;position:relative;z-index:1}
+    .support-state .small{font-size:10px;color:#9abfbb;letter-spacing:.14em;font-weight:850;text-transform:uppercase;margin-bottom:12px}
+    .support-state .status{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:800;margin-bottom:10px}
+    .support-state .status svg{width:20px;height:20px;color:var(--mint);stroke:currentColor;stroke-width:1.8;fill:none}
+    .support-state .desc{font-size:12px;color:#a0b9b8;line-height:1.6}
+    .support-inline{color:var(--mint);text-underline-offset:4px}
+    .footer{border-top:1px solid var(--line);padding:28px 0 34px}
+    .footer-inner{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+    .footer-left{display:flex;align-items:center;gap:12px;font-size:11px;color:#8196a5}
+    .footer-left strong{color:#d6e9eb;font-size:12px;letter-spacing:.14em}
+    .footer-links{display:flex;gap:20px;flex-wrap:wrap}
+    .footer-links a{text-decoration:none;color:#96aab5;font-size:11px}
+    .footer-links a:hover{color:var(--mint)}
+    .privacy{font-size:10px;color:#607f8d;max-width:1160px;margin:15px auto 0}
+    @media(max-width:960px){.hero{gap:32px;grid-template-columns:1fr 1fr;padding:74px 0 75px}.hero h1{font-size:51px}.stage{transform:scale(.95);transform-origin:center right}.principles{gap:12px}.section{padding:74px 0}.projects{gap:12px}.project-card{padding:21px}.about-layout{gap:30px}.support-shell{padding:38px;gap:20px}}
+    @media(max-width:720px){.container{width:min(var(--max),calc(100% - 36px))}.header-wrap{min-height:65px;gap:10px;flex-wrap:wrap;padding:10px 0}.brand-word{font-size:14px}.brand-mark{width:31px;height:31px;font-size:19px}.nav{order:3;width:100%;margin:0;gap:22px;justify-content:center;border-top:1px solid var(--line);padding-top:10px}.nav a{font-size:11px}.lang-switch{margin-left:auto}.hero{grid-template-columns:1fr;gap:28px;min-height:auto;padding:65px 0 65px}.hero h1{font-size:clamp(46px,10vw,66px);max-width:610px}.hero-lead{font-size:15px}.principles{margin-top:29px}.stage{width:min(100%,500px);margin:12px auto 0;transform:none;padding:17px 8px}.floating.one{right:-8px}.floating.two{left:-5px}.section-head{display:block}.section-explain{margin-top:15px}.projects{grid-template-columns:1fr;gap:14px}.project-card{min-height:245px}.project-icon{margin:19px 0 17px}.about-layout{grid-template-columns:1fr;gap:28px}.support-shell{grid-template-columns:1fr;gap:25px;padding:30px 24px}.support-shell:after{top:30px;right:-40px;font-size:270px}.section{padding:66px 0}}
+    @media(max-width:420px){.hero h1{font-size:44px}.hero-actions .btn{font-size:12px;padding:0 13px}.principles li{font-size:10px}.app-content{padding:16px}.app-screen{padding:9px}.mock-row{padding:9px 2px}.floating{font-size:9px}.about-cards{gap:10px}.about-box{padding:16px;min-height:187px}.support-state{padding:17px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
+
+    /* Support section v2: click-only payment links; no remote scripts or tracking. */
+    .support-shell{grid-template-columns:.97fr 1.03fr;align-items:start}
+    .support-intro,.support-methods{position:relative;z-index:1}
+    .support-fine{font-size:12px!important;color:#86aaa8!important;margin-top:14px!important}
+    .support-methods{display:flex;flex-direction:column;gap:12px}
+    .support-method,.support-crypto{display:flex;align-items:center;gap:13px;padding:15px 16px;border:1px solid rgba(141,236,199,.23);background:rgba(5,17,28,.6);border-radius:16px;text-decoration:none;color:var(--text);min-height:75px;transition:border-color .15s,background .15s}
+    .support-method:hover,.support-crypto:hover{border-color:rgba(141,236,199,.68);background:rgba(8,28,37,.9)}
+    .support-method-icon{flex:none;display:grid;place-items:center;width:43px;height:43px;border-radius:13px;background:rgba(141,236,199,.11);border:1px solid rgba(141,236,199,.18);font-size:22px;color:var(--mint);font-weight:750}
+    .support-method-main{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
+    .support-method-main strong{font-size:14px;line-height:1.3}
+    .support-method-main small{font-size:11px;line-height:1.45;color:#a2babd}
+    .support-method-arrow{font-size:20px;color:var(--mint);flex:none;line-height:1}
+    details.support-crypto{display:block;padding:0}
+    details.support-crypto summary{display:flex;align-items:center;gap:13px;padding:15px 16px;cursor:pointer;list-style:none;user-select:none}
+    details.support-crypto summary::-webkit-details-marker{display:none}
+    .crypto-open{border-top:1px solid rgba(141,236,199,.13);padding:17px 16px 20px;display:flex;flex-direction:column;align-items:flex-start;gap:13px}
+    .coin-pills{display:flex;gap:7px;flex-wrap:wrap}
+    .coin-pill{color:#b8f7df;font-weight:700;font-size:11px;background:rgba(141,236,199,.1);border-radius:999px;padding:5px 11px;border:1px solid rgba(141,236,199,.13)}
+    .crypto-open p.crypto-warning{color:#d8c7a5;margin:0;font-size:11px;line-height:1.65}
+    .crypto-open p.crypto-secondary{color:#95b7b6}
+    .crypto-qr{background:#fff;border:8px solid #fff;border-radius:9px;object-fit:contain;display:block;align-self:center;max-width:100%}
+    .crypto-open label{font-size:11px;font-weight:800;color:#b4d4d1}
+    .address-box{display:flex;gap:8px;align-items:stretch;width:100%;flex-wrap:wrap}
+    .address-box code{color:#e0f5eb;overflow-wrap:anywhere;word-break:break-all;font-size:11px;line-height:1.5;border:1px solid rgba(141,236,199,.18);background:rgba(1,15,25,.6);border-radius:9px;padding:10px;flex:1 1 220px}
+    .address-box button{padding:10px 12px;background:#b4f4db;border:0;border-radius:9px;font-size:12px;font-weight:800;color:#06201b;cursor:pointer}
+    .address-box button:hover{background:#d1ffe7}
+    .copy-info{color:#a5ffda;font-size:11px;min-height:12px}
+    @media(max-width:960px){.support-shell{grid-template-columns:1fr}}
+    @media(max-width:420px){.support-method,.support-crypto summary{padding:12px;gap:9px}.support-method-main small{font-size:10px}}
+
+    .crypto-selector{display:block;width:100%;border:1px solid rgba(141,236,199,.35);background:#12263a;color:#eff7f4;border-radius:10px;padding:13px;font:650 13px "Segoe UI",Arial,sans-serif;cursor:pointer}
+    .crypto-selector option{color:#eef5f6;background:#12263a}
+    .crypto-selector:focus-visible{outline:3px solid var(--mint);outline-offset:3px}
+    #cryptoNetworkNote{min-height:32px}
+    .address-box code:focus{outline:2px solid var(--mint);outline-offset:2px}
+
+    /* Visual identity only. No unreleased product names or mock product UI. */
+    .identity-panel{height:390px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;border:1px solid rgba(188,224,232,.20);border-radius:28px;background:radial-gradient(circle at 51% 36%,rgba(53,158,148,.17),transparent 57%),linear-gradient(140deg,rgba(24,45,63,.98),rgba(12,26,39,.98));box-shadow:0 28px 90px rgba(0,0,0,.35);transform:rotate(-1deg)}
+    .identity-panel:before{content:"";position:absolute;inset:20px;border:1px solid rgba(141,236,199,.08);border-radius:20px;pointer-events:none}
+    .identity-orbit{position:absolute;width:290px;height:290px;border:1px solid rgba(141,236,199,.11);border-radius:50%;pointer-events:none}
+    .orbit-a{transform:rotate(25deg) scaleX(.75)}.orbit-b{transform:rotate(-26deg) scaleX(.75)}
+    .identity-core{display:grid;place-items:center;width:112px;height:112px;margin-bottom:10px;border-radius:30px;background:rgba(141,236,199,.10);border:1px solid rgba(141,236,199,.51);font-size:78px;letter-spacing:-.09em;font-weight:800;padding-right:9px;line-height:1;color:var(--mint);box-shadow:0 0 48px rgba(141,236,199,.13) inset,0 0 60px rgba(141,236,199,.08);z-index:1}
+    .identity-name{font-weight:850;font-size:25px;letter-spacing:.26em;padding-left:.26em;z-index:1;color:#e6f7f0}
+    .identity-tagline{font-size:12px;color:#9fb9bd;letter-spacing:.04em;z-index:1}
+    .identity-rule{width:110px;height:1px;background:linear-gradient(90deg,transparent,rgba(141,236,199,.45),transparent);margin:17px 0 7px;z-index:1}
+    .identity-values{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;z-index:1}
+    .identity-values span{padding:6px 9px;border:1px solid rgba(141,236,199,.16);border-radius:999px;background:rgba(141,236,199,.05);font-size:10px;color:#bbd7d0;letter-spacing:.025em}
+    @media(max-width:720px){.identity-panel{height:320px}.identity-orbit{width:255px;height:255px}}
+  </style>
+</head>
+<body>
+<div class="page">
+  <header class="header">
+    <div class="container header-wrap">
+      <a href="#top" class="brand" aria-label="Stanics — home"><span class="brand-mark">S</span><span class="brand-word">STANICS</span></a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#about" data-i18n="navAbout">О нас</a>
+        <a href="#support" data-i18n="navSupport">Поддержка</a>
+      </nav>
+      <div class="lang-switch" role="group" aria-label="Language / Язык">
+        <button id="ruBtn" type="button" data-lang="ru" aria-pressed="true">RU</button>
+        <button id="enBtn" type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="container hero" aria-labelledby="heroTitle">
+      <div>
+        <div class="eyebrow"><span class="line"></span><span data-i18n="eyebrow">НЕЗАВИСИМАЯ РАЗРАБОТКА · DESKTOP</span></div>
+        <h1 id="heroTitle"><span data-i18n="hero1">Программы,</span><br><span data-i18n="hero2">которые не</span><br><span class="accent" data-i18n="hero3">мешают работать.</span></h1>
+        <p class="hero-lead" data-i18n="heroLead">Создаём полезные инструменты для Windows: понятные, аккуратные и без искусственных ограничений. Просто программы, которыми хочется пользоваться.</p>
+        <div class="hero-actions">
+          <a href="#about" class="btn btn-primary"><span data-i18n="learnMore">О проекте</span><span class="arrow" aria-hidden="true">↗</span></a>
+          <a href="https://github.com/stanics763" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><span data-i18n="github">GitHub Stanics</span><span class="arrow" aria-hidden="true">↗</span></a>
+        </div>
+        <ul class="principles" aria-label="Principles"><li><span class="tick">✓</span><span data-i18n="p1">Бесплатно</span></li><li><span class="tick">✓</span><span data-i18n="p2">Без навязчивости</span></li><li><span class="tick">✓</span><span data-i18n="p3">С уважением к пользователю</span></li></ul>
+      </div>
+      <div class="stage" aria-label="Stanics visual identity">
+        <div class="halo" aria-hidden="true"></div>
+        <div class="identity-panel" aria-hidden="true">
+          <div class="identity-orbit orbit-a"></div>
+          <div class="identity-orbit orbit-b"></div>
+          <div class="identity-core">S</div>
+          <div class="identity-name">STANICS</div>
+          <div class="identity-tagline" data-i18n="identityTagline">Независимая разработка</div>
+          <div class="identity-rule"></div>
+          <div class="identity-values">
+            <span data-i18n="identityFree">Бесплатно</span>
+            <span data-i18n="identitySimple">Без лишнего</span>
+            <span data-i18n="identityRespect">С уважением</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-rule" id="about" aria-labelledby="aboutTitle">
+      <div class="container about-layout">
+        <div class="about-copy"><div class="kicker" data-i18n="aboutKicker">01 / О НАС</div><h2 id="aboutTitle" data-i18n="aboutTitle">Небольшая команда.<br>Общий подход.</h2><p data-i18n="aboutBody">Независимый проект двух разработчиков. Мы создаём бесплатные программы, которые делают повседневные задачи проще и удобнее.</p><p data-i18n="aboutBody2">Нам близка простая философия: инструмент должен помогать человеку, а не требовать от него лишнего внимания.</p></div>
+        <div class="about-cards">
+          <div class="about-box"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 25h22M8 21l8-15 8 15M12 15h8"/></svg><strong data-i18n="value1">Практичность</strong><span data-i18n="value1Desc">Функции ради результата, а не ради количества.</span></div>
+          <div class="about-box"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 28S4 21 4 12a7 7 0 0 1 12-4 7 7 0 0 1 12 4c0 9-12 16-12 16Z"/></svg><strong data-i18n="value2">Уважение</strong><span data-i18n="value2Desc">Никакого давления, рекламы и искусственных ограничений.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="support" aria-labelledby="supportTitle">
+      <div class="container support-shell">
+        <div class="support-intro">
+          <div class="kicker" data-i18n="supportKicker">02 / ПОДДЕРЖКА</div>
+          <h2 id="supportTitle" data-i18n="supportTitle">Независимая разработка.<br><span class="accent">Добровольная поддержка.</span></h2>
+          <p data-i18n="supportBody">Мы создаём бесплатные программы без искусственных ограничений. Если хотите поддержать нашу работу, выберите удобный способ. Это полностью добровольно и ничего не требует взамен.</p>
+          <p class="support-fine" data-i18n="supportNoPressure">Мы не просим о поддержке повторно и не отправляем напоминания.</p>
+        </div>
+        <div class="support-methods">
+          <a class="support-method" href="https://pay.cloudtips.ru/p/01a638f4" target="_blank" rel="noopener noreferrer" aria-label="Оплата в рублях через CloudTips">
+            <span class="support-method-icon">₽</span>
+            <span class="support-method-main"><strong data-i18n="supportRussia">Из России</strong><small data-i18n="supportRussiaDesc">Рубли · СБП · российские карты</small></span>
+            <span class="support-method-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="support-method" href="https://stanics-shop.fourthwall.com/" target="_blank" rel="noopener noreferrer" aria-label="Международная поддержка через Fourthwall">
+            <span class="support-method-icon">$</span>
+            <span class="support-method-main"><strong data-i18n="supportWorld">Из других стран</strong><small data-i18n="supportWorldDesc">Международные карты · Fourthwall</small></span>
+            <span class="support-method-arrow" aria-hidden="true">↗</span>
+          </a>
+          <details class="support-crypto">
+            <summary><span class="support-method-icon">₿</span><span class="support-method-main"><strong data-i18n="supportCrypto">Криптовалюта</strong><small data-i18n="supportCryptoDesc">Прямой перевод на кошелёк · без платёжного посредника</small></span><span class="support-method-arrow" aria-hidden="true">⌄</span></summary>
+            <div class="crypto-open">
+              <label for="cryptoAsset" data-i18n="supportChooseAsset">Выберите монету и сеть</label>
+              <select id="cryptoAsset" class="crypto-selector" aria-label="Монета и сеть">
+                <option value="btc">Bitcoin (BTC) · Bitcoin</option>
+                <option value="eth">Ethereum (ETH) · Ethereum</option>
+                <option value="usdt-tron">USDT · TRON (TRC20)</option>
+                <option value="usdt-ethereum">USDT · Ethereum (ERC20)</option>
+                <option value="usdt-ton">USDT · TON</option>
+                <option value="ton">Toncoin (TON) · TON</option>
+                <option value="trx">TRON (TRX) · TRON</option>
+                <option value="sol">Solana (SOL) · Solana</option>
+                <option value="ltc">Litecoin (LTC) · Litecoin</option>
+                <option value="doge">Dogecoin (DOGE) · Dogecoin</option>
+                <option value="bch">Bitcoin Cash (BCH) · Bitcoin Cash</option>
+                <option value="zec">Zcash (ZEC) · Zcash transparent</option>
+              </select>
+              <p class="crypto-warning" id="cryptoNetworkNote" role="status">Только BTC в сети Bitcoin. Не отправляйте через другие сети.</p>
+              <img class="crypto-qr" id="cryptoQr" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMMAAADDAQAAAAAXBJgHAAAB8klEQVR42u2YMY7bMBBF3ywNSKmoG9AXieUuZwqgxHLke62UXIS+AdVRgKyfQt4u6QJuip1K4DR/vmb+H9LEn+P+wt/iI/PvMzIzO3M9Luf5AHA1s6YoNi9lmSbUcK/VOGkrzM7VwNuRX+pZXOJu5/f4P071Z+tD9Wjep0Ps3t+Br7a4VBgB2ryU27R/RUmDtHnFghzMZrXCEJczN5a2eZi9FOVAkrT5NWjza8jtflCSAzWwnOch1j/nYYL5QGkOElRT6oImrSHjV3JbkAOk1IVsWsmWXKw2L1VTWQRS1JQuyvgejb4PRTl4Qc31uLTBrIYuYMnF6rWsL8wrfkod1ciNWtZTl9VEU6X5m/V7+ct3v9jsUlFNBKqRDk5+iBmAwrOgNQBOQEe2dIlFFWn3hWqEoOk5ksr4sggGZXAxA0EjHYURSCsan0qojF8DVlyR9v470ZHhEqvSznTDT8mp+gFUU3occ0k9OAAd85exv+fJV7HOs9PyaSu9I2lKTpy8tA/nqews4JQtdWjSoHwCKpXuRGnzEvZWfmk9AGiTUzVpiBr9ELMV18Tcag3a3srPhfvA9+Q2dQFL3dOoyurBHv5w33dWly5xKXxzBWAeBNyCf21A4/vcmfZ1tZVUeD/Ydku4RI24qKdPl0NgH+9I/0HmN/c9iKi3ZEPBAAAAAElFTkSuQmCC" alt="QR-код Bitcoin BTC" width="188" height="188">
+              <label data-i18n="supportReceiveAddress">Адрес для получения</label>
+              <div class="address-box"><code id="cryptoAddress" tabindex="0">bc1p0d5atcjr6qlp599wumpy9086qh0q4lhgev2xsmj5kpgz7y83r2aqre0em5</code><button type="button" id="copyCryptoAddress" data-i18n="supportCopy">Копировать</button></div>
+              <span id="copyResult" class="copy-info" role="status" aria-live="polite"></span>
+              <p class="crypto-warning crypto-secondary" data-i18n="supportCryptoDisclaimer">Проверяйте совпадение сети и монеты перед отправкой. Комиссия сети оплачивается отправителем; зачисление ещё не тестировалось.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container"><div class="footer-inner"><div class="footer-left"><strong>STANICS</strong><span data-i18n="footerCopy">© 2026 · Независимые desktop-программы</span></div><div class="footer-links"><a href="#about" data-i18n="navAbout">О нас</a><a href="#support" data-i18n="navSupport">Поддержка</a><a href="https://github.com/stanics763" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></div><p class="privacy" data-i18n="privacy">Этот сайт не содержит аналитики, рекламы или сторонних трекеров. Выбранный язык сохраняется только в этом браузере.</p></div>
+  </footer>
+</div>
+<script>
+(function(){
+  'use strict';
+  const translations = {
+    ru: {
+      navAbout:'О нас',navSupport:'Поддержка',
+      eyebrow:'НЕЗАВИСИМАЯ РАЗРАБОТКА · DESKTOP',hero1:'Программы,',hero2:'которые не',hero3:'мешают работать.',
+      heroLead:'Создаём полезные инструменты для Windows: понятные, аккуратные и без искусственных ограничений. Просто программы, которыми хочется пользоваться.',
+      learnMore:'О проекте',github:'GitHub Stanics',p1:'Бесплатно',p2:'Без навязчивости',p3:'С уважением к пользователю',
+      identityTagline:'Независимая разработка',identityFree:'Бесплатно',identitySimple:'Без лишнего',identityRespect:'С уважением',
+      aboutKicker:'01 / О НАС',aboutTitle:'Небольшая команда.<br>Общий подход.',aboutBody:'Независимый проект двух разработчиков. Мы создаём бесплатные программы, которые делают повседневные задачи проще и удобнее.',aboutBody2:'Нам близка простая философия: инструмент должен помогать человеку, а не требовать от него лишнего внимания.',value1:'Практичность',value1Desc:'Функции ради результата, а не ради количества.',value2:'Уважение',value2Desc:'Никакого давления, рекламы и искусственных ограничений.',
+      supportKicker:'02 / ПОДДЕРЖКА',supportTitle:'Независимая разработка.<br><span class="accent">Добровольная поддержка.</span>',supportBody:'Мы создаём бесплатные программы без искусственных ограничений. Если хотите поддержать нашу работу, выберите удобный способ. Это полностью добровольно и ничего не требует взамен.',supportNoPressure:'Мы не просим о поддержке повторно и не отправляем напоминания.',supportRussia:'Из России',supportRussiaDesc:'Рубли · СБП · российские карты',supportWorld:'Из других стран',supportWorldDesc:'Международные карты · Fourthwall',supportCrypto:'Криптовалюта',supportCryptoDesc:'Прямой перевод на кошелёк · без платёжного посредника',supportChooseAsset:'Выберите монету и сеть',supportReceiveAddress:'Адрес для получения',supportCryptoDisclaimer:'Проверяйте совпадение сети и монеты перед отправкой. Комиссия сети оплачивается отправителем; зачисление ещё не тестировалось.',supportToken1:'TRX · сеть TRON',supportToken2:'USDT · TRC20',supportTronWarning:'Только сеть TRON. Не отправляйте USDT через Ethereum, TON или другие сети на этот адрес.',supportTronAddress:'Публичный адрес TRON',supportCopy:'Копировать',supportOtherCoins:'BTC, ETH и другие сети будут добавлены после проверки точных адресов.',supportCopied:'Адрес скопирован',supportCopyFailed:'Не удалось скопировать. Выделите адрес вручную.',supportStateTitle:'СТАТУС ПОДКЛЮЧЕНИЯ',supportState:'Способы поддержки готовятся',supportStateDesc:'Платёжная ссылка появится здесь после проверки получения выплат. Пока мы ничего не принимаем.',
+      footerCopy:'© 2026 · Независимые desktop-программы',privacy:'Этот сайт не содержит аналитики, рекламы или сторонних трекеров. Выбранный язык сохраняется только в этом браузере.'
+    },
+    en: {
+      navAbout:'About',navSupport:'Support',
+      eyebrow:'INDEPENDENT DESKTOP SOFTWARE',hero1:'Software,',hero2:'that stays',hero3:'out of your way.',
+      heroLead:'We build useful Windows tools: straightforward, thoughtfully made, and without artificial limitations. Just software you enjoy using.',
+      learnMore:'About the project',github:'Stanics on GitHub',p1:'Free to use',p2:'No nagging',p3:'Built with respect',
+      identityTagline:'Independent software',identityFree:'Free',identitySimple:'Thoughtful',identityRespect:'Respectful',
+      aboutKicker:'01 / ABOUT',aboutTitle:'Small team.<br>Shared mindset.',aboutBody:'An independent project by two developers. We create free software that makes everyday tasks simpler and more convenient.',aboutBody2:'We believe a good tool should help people get things done, not compete for their attention.',value1:'Practical by design',value1Desc:'Features that serve a purpose, not a feature count.',value2:'Respect for users',value2Desc:'No pressure, advertising, or artificial restrictions.',
+      supportKicker:'02 / SUPPORT',supportTitle:'Independent software.<br><span class="accent">Voluntary support.</span>',supportBody:'We develop free software without artificial limitations. If you would like to support our work, choose a convenient method. Contributions are entirely optional and do not entitle donors to anything in return.',supportNoPressure:'No donation reminders or pop-ups.',supportRussia:'From Russia',supportRussiaDesc:'RUB · SBP · Russian bank cards',supportWorld:'From other countries',supportWorldDesc:'International bank cards · Fourthwall',supportCrypto:'Cryptocurrency',supportCryptoDesc:'Direct wallet transfer · no payment intermediary',supportChooseAsset:'Choose coin and network',supportReceiveAddress:'Receiving address',supportCryptoDisclaimer:'Check the exact coin and network before sending. Network fees are paid by the sender; live receipt has not been tested.',supportToken1:'TRX · TRON network',supportToken2:'USDT · TRC20',supportTronWarning:'TRON network only. Do not send USDT via Ethereum, TON, or any other network to this address.',supportTronAddress:'Public TRON address',supportCopy:'Copy address',supportOtherCoins:'BTC, ETH and other networks will be added after exact address verification.',supportCopied:'Address copied',supportCopyFailed:'Could not copy. Please select the address manually.',supportStateTitle:'PAYMENT SETUP',supportState:'Support options coming soon',supportStateDesc:'A payment link will appear here after payout verification. We are not accepting contributions yet.',
+      footerCopy:'© 2026 · Independent desktop software',privacy:'This site has no analytics, ads, or third-party trackers. Your language selection is stored only in this browser.'
+    }
+  };
+  const richKeys=new Set(['aboutTitle','supportTitle']);
+  const ruBtn=document.getElementById('ruBtn'), enBtn=document.getElementById('enBtn');
+  function setLanguage(lang){
+    if(!translations[lang]) lang='ru';
+    document.documentElement.lang=lang;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      const key=el.dataset.i18n;
+      if(Object.prototype.hasOwnProperty.call(translations[lang],key)){
+        if(richKeys.has(key)){el.innerHTML=translations[lang][key]}else{el.textContent=translations[lang][key]}
+      }
+    });
+    ruBtn.setAttribute('aria-pressed',String(lang==='ru'));
+    enBtn.setAttribute('aria-pressed',String(lang==='en'));
+    document.querySelector('meta[name="description"]').setAttribute('content',lang==='ru'?'Независимый проект двух разработчиков, создающих бесплатные программы для повседневных задач.':'An independent project by two developers creating free software for everyday tasks.');
+    try{localStorage.setItem('stanics-site-language',lang)}catch(e){}
+  }
+  ruBtn.addEventListener('click',function(){setLanguage('ru')});
+  enBtn.addEventListener('click',function(){setLanguage('en')});
+  let initial='ru';try{const stored=localStorage.getItem('stanics-site-language');if(translations[stored])initial=stored}catch(e){}
+  setLanguage(initial);
+  // Public receiving addresses from owner-provided My Wallet share URL (28 Oct 2026).
+  // Addresses/QR are embedded statically. No data is sent to external services.
+  const cryptoAssets = {"btc":{"address":"bc1p0d5atcjr6qlp599wumpy9086qh0q4lhgev2xsmj5kpgz7y83r2aqre0em5","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMMAAADDAQAAAAAXBJgHAAAB8klEQVR42u2YMY7bMBBF3ywNSKmoG9AXieUuZwqgxHLke62UXIS+AdVRgKyfQt4u6QJuip1K4DR/vmb+H9LEn+P+wt/iI/PvMzIzO3M9Luf5AHA1s6YoNi9lmSbUcK/VOGkrzM7VwNuRX+pZXOJu5/f4P071Z+tD9Wjep0Ps3t+Br7a4VBgB2ryU27R/RUmDtHnFghzMZrXCEJczN5a2eZi9FOVAkrT5NWjza8jtflCSAzWwnOch1j/nYYL5QGkOElRT6oImrSHjV3JbkAOk1IVsWsmWXKw2L1VTWQRS1JQuyvgejb4PRTl4Qc31uLTBrIYuYMnF6rWsL8wrfkod1ciNWtZTl9VEU6X5m/V7+ct3v9jsUlFNBKqRDk5+iBmAwrOgNQBOQEe2dIlFFWn3hWqEoOk5ksr4sggGZXAxA0EjHYURSCsan0qojF8DVlyR9v470ZHhEqvSznTDT8mp+gFUU3occ0k9OAAd85exv+fJV7HOs9PyaSu9I2lKTpy8tA/nqews4JQtdWjSoHwCKpXuRGnzEvZWfmk9AGiTUzVpiBr9ELMV18Tcag3a3srPhfvA9+Q2dQFL3dOoyurBHv5w33dWly5xKXxzBWAeBNyCf21A4/vcmfZ1tZVUeD/Ydku4RI24qKdPl0NgH+9I/0HmN/c9iKi3ZEPBAAAAAElFTkSuQmCC","ru":"Только BTC в сети Bitcoin. Не отправляйте через другие сети.","en":"Only BTC on the Bitcoin network."},"eth":{"address":"0xab7814c21B47Bc2804E437e5930799c5fb2792bA","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK8AAACvAQAAAACj6bPYAAABjUlEQVR42u1XMW7cMBCcPR7A69ZlOgbIO0J1eVFKwZIh/yQfofIDl+n2HmCA6miA1qQ42ZULN2RldppmsJzhzkiIDw5P+PB8wZ+GwR0ABs4oA2soN6wxpZJlyAh+zY5lIK0t5QnAg4B3QIlar6Cce933eL383c49tHwjUW/ffj29/PjXxT5KlqgkJE/WR8tN5AI8XsvPcAZWke+tpyRJ7lpRotKOz9YXOwNDHuHXPLEArgNlBVeSiLpYiVqbrwKyogxcjElJkgvbU86BCY4FSvO7ttbyBGw0udcX0bSdAWwdHJvd4dhjrY/ttcyOiJjok5JMHRzLPAafMN1eZIlaQ4fwMghrgGRnXHOHvASCJ2ncMQa/62Ltp1wMwjn4pAt9n4VH8wmTva2gHlpWQDijxAMKrVeBZEe+3jnzKyu4K9c+DS8jMAEoEWPo0vCizqEIabdg6ZCXJd7mdYb2PfYdnuwirOCax04ND8Am+nuU+PT8p0vDGzICos7wa+5gHwCIwJHTUVu3Avn6v2wD/wdbHEVoYqBulgAAAABJRU5ErkJggg==","ru":"Только ETH в основной сети Ethereum. Не используйте другие сети.","en":"Only ETH on Ethereum mainnet. Do not send via another network."},"usdt-tron":{"address":"TCKW4m99HEsyx8fbWEVU75yyzjbDJjCwEw","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK8AAACvAQAAAACj6bPYAAABlklEQVR42u2XMXLbMBRE3xc0A6WCbgBdxGRylNyDCelh4TJHsuhcBDpBwA6eobgp7HQu0gCVf4dtgN2/8//CxAelAx/WJ/zfMNoBujBFLA+UN6zyS4JUWKebv5+d6KVUn/yjYZooBDNkx8rCHt/lNeLrlz+/UrsWW3YLD9EubewTpNLnAX8NG6WXUnX7rGYnRZ/WnzwlFrNLbZaSpD1M6Arx/Vhb2Cli2qK/AqXPA/Wv3PA7LmF5iAXG+ixxiS5s0f8zUqxtH9OE5uyW8jvfDZ1bzNhRBQYKjMkvmTa9vDKqECT67Kr3UnlUsTzglYeoKw0ci0taJBXChN8ZUwthC7hUes3ye6g/CqRZXtml0mtDi+YmLOlwAlzStcEokKboJQkYVXrNqr9JJtavcKOX2Wk53636ig5K/tmOUc9nl7Tj1CbhMcTS4VLpILZJeHA7vbzPoUYJL4OWDHbg8VI/+0yULmz4PWzRLy2yz1s9JVjnVNqEylHYbYuv32SX04P96KtH59WgO7vvvMCtHELttG6f/8s68F9rLxzXWyPb+AAAAABJRU5ErkJggg==","ru":"Только USDT в сети TRON (TRC20). Не используйте ERC20 или TON.","en":"Only USDT TRC20 on TRON. Do not use ERC20 or TON."},"usdt-ethereum":{"address":"0xab7814c21B47Bc2804E437e5930799c5fb2792bA","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK8AAACvAQAAAACj6bPYAAABjUlEQVR42u1XMW7cMBCcPR7A69ZlOgbIO0J1eVFKwZIh/yQfofIDl+n2HmCA6miA1qQ42ZULN2RldppmsJzhzkiIDw5P+PB8wZ+GwR0ABs4oA2soN6wxpZJlyAh+zY5lIK0t5QnAg4B3QIlar6Cce933eL383c49tHwjUW/ffj29/PjXxT5KlqgkJE/WR8tN5AI8XsvPcAZWke+tpyRJ7lpRotKOz9YXOwNDHuHXPLEArgNlBVeSiLpYiVqbrwKyogxcjElJkgvbU86BCY4FSvO7ttbyBGw0udcX0bSdAWwdHJvd4dhjrY/ttcyOiJjok5JMHRzLPAafMN1eZIlaQ4fwMghrgGRnXHOHvASCJ2ncMQa/62Ltp1wMwjn4pAt9n4VH8wmTva2gHlpWQDijxAMKrVeBZEe+3jnzKyu4K9c+DS8jMAEoEWPo0vCizqEIabdg6ZCXJd7mdYb2PfYdnuwirOCax04ND8Am+nuU+PT8p0vDGzICos7wa+5gHwCIwJHTUVu3Avn6v2wD/wdbHEVoYqBulgAAAABJRU5ErkJggg==","ru":"Только USDT в сети Ethereum (ERC20). Комиссии сети могут быть высокими.","en":"Only USDT ERC20 on Ethereum mainnet. Gas fees may be significant."},"usdt-ton":{"address":"UQB3yVvHGR4P4uFAcg9u2fRVhm9UNDT01_RHHCcqA3uidLYP","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMMAAADDAQAAAAAXBJgHAAACDUlEQVR42u2YMY7bMBRE37cMUB2VLh33IhGdIwVIs4ASeWMDe4wUOUU6e/ci1A3ojgJkTQpvuqQLuCmWJX/BwefMfA5N/HlNG/623ir/viIzsx1XmzccaeHBzLqq2LxU1D2q7S8Ll9g10lqxB2j1e0pPk9wKwUmHRO+Vat+P31OepVTUvQ5DLN9H4Ej7nF8BwSjgMc1fbJkuXyHoVBfBxaxVxwR+C+quZpuqTJQkrV5J0kGl97edVFMLUukhFJMSlhthdREATjokScuLKqiqRssDc7QFzt1jomegtVyXBwe5lSaV3itphVD1FrZwWbhs/GdaMNxP/+k76nLVHizBnfxB9F6pWCa4c1UmShKWRzllQok6pKoINsD1zl27q5Unv79tzrGrOhu5GYC0+gViHlNtP/BK7pwb0TPgpCVU9QMkHRIxD2BaAkBwp7oIMugsJWJuVGIeQol1/YDhh8UTSO9mIwK+1H2pdkzuobvezTsek7757XSxulrwEr1fQoExOeUh6FxZC3t0zmNy0kEFmkSsPJ3H27nFtNweaNRU4xYTuHUzhPbEEfB5et/Wz0wfM9Mcu+bcwhGvXJuJJeYxEbWE0nvVTSwvmSnm5sZEtwLVZyMA93fIlqlYHkJRVz9V+3247DgyW3Bn2/EKPGiSTn5PMS2hqh/8zkxhwcZpCXyw/VSeKvbA3v6R/oPKL5qRb38cuWPiAAAAAElFTkSuQmCC","ru":"Только нативный USDT в сети TON. Не используйте TRC20 или ERC20. Для этого личного адреса memo не требуется.","en":"Only native USDT jetton on TON. Do not use TRC20 or ERC20; no memo required for this self-custodial address."},"ton":{"address":"UQB3yVvHGR4P4uFAcg9u2fRVhm9UNDT01_RHHCcqA3uidLYP","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMMAAADDAQAAAAAXBJgHAAACDUlEQVR42u2YMY7bMBRE37cMUB2VLh33IhGdIwVIs4ASeWMDe4wUOUU6e/ci1A3ojgJkTQpvuqQLuCmWJX/BwefMfA5N/HlNG/623ir/viIzsx1XmzccaeHBzLqq2LxU1D2q7S8Ll9g10lqxB2j1e0pPk9wKwUmHRO+Vat+P31OepVTUvQ5DLN9H4Ej7nF8BwSjgMc1fbJkuXyHoVBfBxaxVxwR+C+quZpuqTJQkrV5J0kGl97edVFMLUukhFJMSlhthdREATjokScuLKqiqRssDc7QFzt1jomegtVyXBwe5lSaV3itphVD1FrZwWbhs/GdaMNxP/+k76nLVHizBnfxB9F6pWCa4c1UmShKWRzllQok6pKoINsD1zl27q5Unv79tzrGrOhu5GYC0+gViHlNtP/BK7pwb0TPgpCVU9QMkHRIxD2BaAkBwp7oIMugsJWJuVGIeQol1/YDhh8UTSO9mIwK+1H2pdkzuobvezTsek7757XSxulrwEr1fQoExOeUh6FxZC3t0zmNy0kEFmkSsPJ3H27nFtNweaNRU4xYTuHUzhPbEEfB5et/Wz0wfM9Mcu+bcwhGvXJuJJeYxEbWE0nvVTSwvmSnm5sZEtwLVZyMA93fIlqlYHkJRVz9V+3247DgyW3Bn2/EKPGiSTn5PMS2hqh/8zkxhwcZpCXyw/VSeKvbA3v6R/oPKL5qRb38cuWPiAAAAAElFTkSuQmCC","ru":"Только TON в сети TON.","en":"Only TON on the TON network."},"trx":{"address":"TCKW4m99HEsyx8fbWEVU75yyzjbDJjCwEw","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK8AAACvAQAAAACj6bPYAAABlklEQVR42u2XMXLbMBRE3xc0A6WCbgBdxGRylNyDCelh4TJHsuhcBDpBwA6eobgp7HQu0gCVf4dtgN2/8//CxAelAx/WJ/zfMNoBujBFLA+UN6zyS4JUWKebv5+d6KVUn/yjYZooBDNkx8rCHt/lNeLrlz+/UrsWW3YLD9EubewTpNLnAX8NG6WXUnX7rGYnRZ/WnzwlFrNLbZaSpD1M6Arx/Vhb2Cli2qK/AqXPA/Wv3PA7LmF5iAXG+ixxiS5s0f8zUqxtH9OE5uyW8jvfDZ1bzNhRBQYKjMkvmTa9vDKqECT67Kr3UnlUsTzglYeoKw0ci0taJBXChN8ZUwthC7hUes3ye6g/CqRZXtml0mtDi+YmLOlwAlzStcEokKboJQkYVXrNqr9JJtavcKOX2Wk53636ig5K/tmOUc9nl7Tj1CbhMcTS4VLpILZJeHA7vbzPoUYJL4OWDHbg8VI/+0yULmz4PWzRLy2yz1s9JVjnVNqEylHYbYuv32SX04P96KtH59WgO7vvvMCtHELttG6f/8s68F9rLxzXWyPb+AAAAABJRU5ErkJggg==","ru":"Только TRX в сети TRON.","en":"Only TRX on the TRON network."},"sol":{"address":"GcXZAevEYPN4HwqjNdJK6rTekTuPNUXjEhcf62i3x6PM","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMMAAADDAQAAAAAXBJgHAAACE0lEQVR42u2YMY7bMBRE3zcN0B11A+oikbbKidIsIMfa9d5rLeci1A2oKhRga1IY6ZIu4KbY3xDgbz5mhvMHNPHnmnf8rT47/74jM7OnZZwPLMf2cOXFzJqqswWpEKxfLfpUwElbZXReDBhmP+W7Wd8w29MH8LN4rUcboc8fpZBnwzSi96byBGgLUulwyV8YYunCWdqCUq0J9rAYdOEby9fgJ+BuEGpi8KjsUoGT/CU8LlJFP2jurfXNAB3MdMuxrawDZSd/YQBw4jcQqaYjrbaeshO9jq02mOkqv0aX/CVY619xkz2FfazuBy/90jewHJt7WwDWHZXfQtIlnFUsu+QvuERXUQdI2SXAJV0YYoGTMNV0JMVjL+1g/Y6bDrbdW6nJFXVg2aXV5eeWK0DH21zbD3SL2oIee0GTzipU9QOZT7Zb9pQ+u+nwpbnbR2Aw5SEW0y2WDpeq7ka04RIdQyx9HpDyEEtXlQXTDX/WfvavEJninnDOVRMKwIOAcIt+45T8VheD7OTfmzf4kd9mrmEfuVZOaWMslk/JK5+SNkCTqrqyJG0QpXxKEFR7L2wAvcboN5wK4Zz8pLoJRSoyTVy526FjoNRO6yOlz0R6jQ9IilXVwRZGShdGAGLpNVKVhf3jsPyWWmAOPw1K3e0MJ8Gytl4Z1qdwTgfLVXPiYnZQ3LPsGKJ/ZaDUdCT7/Ef6Dzq/AOoaTie43OSSAAAAAElFTkSuQmCC","ru":"Только SOL в сети Solana.","en":"Only SOL on the Solana network."},"ltc":{"address":"ltc1pys7thnakq2c9tc2eywuxln7pfuwdmvf94v7yjpgu42pxxt5enr2syaue8a","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANcAAADXAQAAAAChBvkYAAACSUlEQVR42u1YO47cMAx9HA2g6TQ5Aeck8uZeXqwWXiDXyDU2lZWTaLqUchUNoPFLYQepth2mWBYqzIYw34ekEB8FD/g4PnOPy4ErAESMihiScoZj2xIGtQSyxTAVvwYWklNpA1lsakloMXRtCCyIAFqEM6hlz0l9Q+D1+eJztcYShWWRM/afY4bdQLahuuJZHX0mDfECADFMpf17rHi0R0JD6OpZR92+GGCX57uISAKAtyuoR5x4fhUbvHT1mVPBQBYMdVS/wtGkR/WltKHu3ULc5MYGuySLn8PEJtWxDUyAMBl5QFJEAH4NHSS7GnoAyyYygCNzHZVr6GrljYiAQuoIDBWKGLpVj+DJri0CykwWICS10Be5dl0OcOUEvOQTludLk+qyzSw1KnN19Ctc8XPo6nO10ZcVrrSBHcxkYa4j/Gwyv2ze6OdAenIiV0CbGHK6RQA+V1fawKSIRpxmhfoNNOzqM5NyDZMNXkJHG8jiZzg2YYddj+AKVzhC6ksBQsJmlQ+v5Qip50s7AVf/fsZ3//uL4w2hH23ml6ScMWqLGEFufkQ7fdmnlgTOocPnOsIKu36nEAsz+8YtM5+WOipimNiGCgBGnN5mfkD9HDrI6oqRvhxAEZGnkPZl9gDg9rSkq8kOG8iGpQNYPFvE/eJnjGqzT78KAFduX3m7nKgJcgjJ8E4UjuD9/K1w3s4Or5fH13L8e/O4C38uN/E/rmf99S7j1e7OQBauwLZUM5v40QFYRE6U50Hcbtb5tB1hHl2LfN53//vcH54r8qPbb/YRAAAAAElFTkSuQmCC","ru":"Только LTC в сети Litecoin.","en":"Only LTC on the Litecoin network."},"doge":{"address":"DBxqshrTrug1LhB8LLBwCBgsCqbVBB2HoS","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK8AAACvAQAAAACj6bPYAAABk0lEQVR42u2XPW7jMBSEvxcZkDrqBvRF1kq1dwogx0wcYI8Va3MR6gZkRwNaTQpns02Kbagq7Piapxlhfmjii6M7vjzf4/8eoxXgQCNMgXKbVf4SJxWA9k/fRAYp1gf/ZJ8APbLdNnzLwnxt5mXDX2wJz4/+ZauVJwHM7pkHw7RUXrmDbHDwgfzTtZHJQJVFIklaaaTLv2tdYtU/7a1J0OGCv97no1EdZUBTGj2mc2wvTrEuSqQ0UnCLb1cnMSR8fWKh1dxO5Tcvc8Fpqk/sAoOCL3CKmlJtj0WrC+gCvhzAF1OovvITZSstXhcXqieJbOf12kMeeujItd3nlpfFFHz5KxLVF8lJunCKxbRQLDWxOrHe9tdHoCO3cq9+8RuIxEtphCGdVIbUbEDs6MEpgjtHcFuIRNLK6HWzV7f46lbw0fBiGXSO5bDFSieVAwA3lPXz8tbw0kdE210+7rdpeD10Nge08mvaqMQ/7POxh+4tjfUNz0ll0EIrncWQxuoRTTbrZGfl+3w0PVfvsfb9vqwzfgf6Jxo4jQ6htwAAAABJRU5ErkJggg==","ru":"Только DOGE в сети Dogecoin.","en":"Only DOGE on the Dogecoin network."},"bch":{"address":"qzxee4pywnahf78vrql44sqk9krxy6wt2vkrzht0dw","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK8AAACvAQAAAACj6bPYAAABoklEQVR42u1XMZLcIBDsOVTFZuwPUNX9Q+wP/B5XyZa25NAfuktO+BfO0A9QhqpY2oHOji5wAtFNQjHJwHRP0wjxQfAJH8Zn+r/TYAGAwSwBg8lIZ67ySQyZgIeDbAvhyFD/8neBREDfbQdQujb95lX547bnrQGW3blIBADz7fl3G1ZNBHDvNbcZEOb6JXeRC6/K785qDy/S1x4SkmSBCkmi4vu28lya2UI4IwEjkotj9bmUOHm97hkYAHvx1/rqwwgLFxXJOAXtI2ztxpKkJhdqzxkshqG64OHHdogcPSgMF4n3voWsc8VouZoMuFhb1sFiSDiSumC0EGY0wXI12ZJkSINpUTLb5Migi5nBFVNl+nTA/hP6TVTGL6hweeXjOdSmj1lCGky2SaIKcA0Ej8zQJ4yYAgsaSEFUJ2mSOx/NJbRgLIuZbRowtlCffw4vQxeMSIOZbQspSAOmACEDi6lNn78Oj+L4JjPkaRdpYrcosMfNdFa/fIlbIxM/eV3wtX/3eg2wdFEFXUwGfRxtdSxPh/dw+w3A8b26j5XP/2Wd9B9NfyeJe444OQAAAABJRU5ErkJggg==","ru":"Только BCH в сети Bitcoin Cash (CashAddr). Нельзя отправлять BTC.","en":"Only BCH on Bitcoin Cash (CashAddr). Never send BTC here."},"zec":{"address":"t1e8JZqeNTng9L5LvYLx7sNn1NnJCCT37dR","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK8AAACvAQAAAACj6bPYAAABm0lEQVR42u2XMY7cMBAEayQBdMY1/ADuRyztw3SQDruAn2XJL5F+QEWmAN62g7OzC5yQ0TEiOhlwuqd7aOKDo4YPzyf83zB6AvR+DvQQ0jtWuKSX0iAJi2NIg7SVLdkArwaHWeoBZF2dfusy4n4Gt1bgsvt3aYXt38aziny8lHqfkapxeZh9gR/bOQS3sppdSzfWBKg5r+53c16lCuOqC/vZ0Ap4BDOb9/KKfR38Gt/svHmt9Lxdy8tnBouTtDDJPX0u7j6KI1qVQ7LYKg1x2ioY3oZpDgySnCKhfMm7pNhuWmilhdKvfHcf639NwUwPwHc1DG93y9cOl468X/sjVzC8DL2X3JNpk3RXeS4zTnESFgnAWH5IlAO9l7TqviXTTPmIfuDWvdvPF8uBKlwCib+EbuBzKN9YSU9/37TGdtOz+LrVIDOz25GDDSFz3pi24knipWSR3a37y9UtECqEl6HL28D3MGNNrY3a1HHeeAS3+G6vkZdpiIApB4Y4VtrWY6vUA1qKu08Hh0F/GS2Z2LF4KSwf+/xfloH/AFXmD8qblsq3AAAAAElFTkSuQmCC","ru":"Только ZEC на прозрачный адрес Zcash (t-address).","en":"Only ZEC on the transparent Zcash address (t-address)."}};
+  const cryptoAsset = document.getElementById('cryptoAsset');
+  const cryptoAddress = document.getElementById('cryptoAddress');
+  const cryptoQR = document.getElementById('cryptoQr');
+  const cryptoNetworkNote = document.getElementById('cryptoNetworkNote');
+  const cryptoCopyBtn = document.getElementById('copyCryptoAddress');
+  const cryptoResult = document.getElementById('copyResult');
+  function showCryptoAsset(){
+    const data=cryptoAssets[cryptoAsset.value];
+    if(!data)return;
+    cryptoAddress.textContent=data.address;
+    cryptoQR.src=data.qr;
+    cryptoQR.alt='QR: '+cryptoAsset.options[cryptoAsset.selectedIndex].text;
+    cryptoNetworkNote.textContent=data[document.documentElement.lang==='en'?'en':'ru'];
+    cryptoResult.textContent='';
+  }
+  cryptoAsset.addEventListener('change',showCryptoAsset);
+  ruBtn.addEventListener('click',showCryptoAsset);
+  enBtn.addEventListener('click',showCryptoAsset);
+  cryptoCopyBtn.addEventListener('click',async function(){
+    const addr=cryptoAddress.textContent.trim();
+    let copied=false;
+    try{if(navigator.clipboard && window.isSecureContext){await navigator.clipboard.writeText(addr);copied=true}}catch(e){}
+    if(!copied){
+      try{const selection=window.getSelection();const range=document.createRange();range.selectNodeContents(cryptoAddress);selection.removeAllRanges();selection.addRange(range)}catch(e){}
+    }
+    const lang=document.documentElement.lang==='en'?'en':'ru';
+    cryptoResult.textContent=copied?translations[lang].supportCopied:translations[lang].supportCopyFailed;
+  });
+  showCryptoAsset();
+})();
+</script>
+</body>
+</html>
