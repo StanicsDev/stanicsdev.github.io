@@ -18,8 +18,8 @@
 html{scroll-behavior:smooth}
 body{margin:0;display:flex;flex-direction:column;min-height:100svh;color:var(--text);background:var(--bg);font:15px/1.5 var(--font);-webkit-font-smoothing:antialiased}
 a{color:inherit}
-button,select{font:inherit}
-a:focus-visible,button:focus-visible,select:focus-visible,summary:focus-visible,.address:focus-visible{outline:2px solid var(--accent-light);outline-offset:3px}
+button{font:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent-light);outline-offset:3px}
 .wrap{width:min(1210px,calc(100% - 56px));margin-inline:auto}
 .topbar{border-bottom:1px solid var(--line-faint)}
 .topbar-inner{display:flex;justify-content:space-between;align-items:center;min-height:91px;gap:16px}
@@ -31,36 +31,19 @@ a:focus-visible,button:focus-visible,select:focus-visible,summary:focus-visible,
 .lang button[aria-pressed="true"]{background:#d29a5d;color:#19140f}
 .lang button:hover:not([aria-pressed="true"]){background:#3b2d22;color:var(--text)}
 main.wrap{flex:1;display:flex;align-items:center;padding:clamp(38px,7vh,100px) 0}
-.support{scroll-margin-top:20px;width:100%;display:grid;grid-template-columns:40% minmax(0,60%);align-items:center;min-height:444px;padding:50px 55px 50px 60px;border:1px solid #8b613c;border-radius:13px;background:#211b16}
+.support{scroll-margin-top:20px;width:100%;display:grid;grid-template-columns:40% minmax(0,60%);align-items:center;min-height:350px;padding:50px 55px 50px 60px;border:1px solid #8b613c;border-radius:13px;background:#211b16}
 .intro{padding-right:45px}
 h1{margin:0;color:#f1d9c3;font-weight:680;letter-spacing:-.036em;font-size:clamp(32px,3vw,43px);line-height:1.17;max-width:340px}
 .subtitle{margin:24px 0 0;font-size:15px;color:var(--muted);line-height:1.7;max-width:320px}
-.method-list{border-left:1px solid #45382c;padding-left:36px;display:grid;gap:20px;min-width:0}
+.method-list{border-left:1px solid #45382c;padding-left:36px;display:grid;gap:22px;min-width:0}
 .method{display:block;background:var(--tile);border:1px solid #4e3c2c;border-radius:12px;color:var(--text);text-decoration:none;min-width:0;transition:background .15s,border-color .15s}
 a.method:hover,details.method:hover{background:var(--tile-hover);border-color:#a36f40}
-.method-main{display:flex;align-items:center;gap:23px;padding:18px 20px;min-height:94px;min-width:0}
+.method-main{display:flex;align-items:center;gap:23px;padding:18px 20px;min-height:102px;min-width:0}
 .symbol{display:grid;place-items:center;flex:0 0 55px;width:55px;height:55px;border:1px solid #a77342;color:#d9a366;background:#292016;border-radius:9px;font-size:29px;font-weight:600;line-height:1}
 .method-title{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
 .method-title strong{font-weight:680;font-size:16px;line-height:1.3;color:#f0e3d5}
 .method-title small{font-size:12px;line-height:1.45;color:var(--muted)}
 .method-arrow{color:var(--accent);font-size:25px;flex:none;line-height:1}
-summary{cursor:pointer;list-style:none}summary::-webkit-details-marker{display:none}summary::marker{content:""}
-.crypto-method[open]{border-color:#ad7d50;background:#231d18}
-.crypto-method[open] summary{border-bottom:1px solid var(--line-faint)}
-.crypto-method[open] .method-arrow{transform:rotate(180deg)}
-.crypto-body{min-width:0;padding:20px}
-.field-label{display:block;font-size:12px;font-weight:620;color:#c7b5a5;margin:0 0 9px}
-.asset-select{width:100%;max-width:100%;min-width:0;background:#191613;color:var(--text);border:1px solid #73583f;border-radius:6px;padding:11px 12px;font-size:13px}
-.coin-warning{color:#e1b889;font-size:12px;margin:11px 0 0;line-height:1.6}
-.crypto-details{display:grid;grid-template-columns:155px minmax(0,1fr);gap:17px;align-items:start;margin-top:19px;min-width:0}
-.qr-holder{background:#fff;border-radius:5px;border:1px solid #725b46;padding:8px;width:155px;max-width:100%}
-.qr-holder img{display:block;width:100%;height:auto;aspect-ratio:1;image-rendering:pixelated}
-.address-area{min-width:0}
-.address{display:block;min-width:0;overflow-wrap:anywhere;word-break:break-word;color:#ead3b8;background:#171410;border:1px solid #604734;border-radius:5px;padding:11px;font:12px/1.55 Consolas,"Cascadia Code",monospace;user-select:all}
-.copy-btn{margin-top:10px;cursor:pointer;padding:10px 14px;border-radius:5px;border:1px solid #d9a970;background:#c8955d;color:#1e160f;font-size:12px;font-weight:710}
-.copy-btn:hover{background:var(--accent-light)}
-.copy-state{display:block;min-height:1.6em;color:#e4b57e;font-size:12px;margin-top:6px}
-.network-disclaimer{font-size:11px;line-height:1.55;color:#b6a69a;margin:11px 0 0}
 .footer{border-top:1px solid var(--line-faint);padding:28px 0 35px}
 .footer-inner{display:flex;justify-content:space-between;align-items:center;gap:18px;font-size:12px;color:#ada093}
 .footer-brand{display:flex;align-items:center;gap:18px}
@@ -94,10 +77,6 @@ summary{cursor:pointer;list-style:none}summary::-webkit-details-marker{display:n
   .method-title strong{font-size:14px}
   .method-title small{font-size:11px}
   .method-arrow{font-size:21px}
-  .crypto-body{padding:16px 12px}
-  .crypto-details{grid-template-columns:minmax(0,1fr);gap:15px}
-  .qr-holder{width:168px;margin-inline:auto}
-  .address-area{width:100%}
   .footer{padding:20px 0 25px}
   .footer-inner{flex-wrap:wrap;font-size:11px}
 }
@@ -132,37 +111,6 @@ summary{cursor:pointer;list-style:none}summary::-webkit-details-marker{display:n
             <span class="method-arrow" aria-hidden="true">↗</span>
           </span>
         </a>
-        <details class="method crypto-method" id="cryptoMethod">
-          <summary class="method-main">
-            <span class="symbol" aria-hidden="true">₿</span>
-            <span class="method-title"><strong data-i18n="crypto">Криптовалюта</strong><small data-i18n="cryptoDesc">Выберите монету и сеть</small></span>
-            <span class="method-arrow" aria-hidden="true">⌄</span>
-          </summary>
-          <div class="crypto-body">
-            <label class="field-label" for="cryptoAsset" data-i18n="choose">Монета и сеть</label>
-            <select class="asset-select" id="cryptoAsset">
-              <option value="btc">Bitcoin (BTC) · Bitcoin</option>
-              <option value="eth">Ethereum (ETH) · Ethereum</option>
-              <option value="usdt-tron">USDT · TRON (TRC20)</option>
-              <option value="usdt-ethereum">USDT · Ethereum (ERC20)</option>
-              <option value="usdt-ton">USDT · TON</option>
-              <option value="ton">Toncoin (TON) · TON</option>
-              <option value="trx">TRON (TRX) · TRON</option>
-              <option value="sol">Solana (SOL) · Solana</option>
-            </select>
-            <p class="coin-warning" id="cryptoNetworkNote" role="status">Только BTC в сети Bitcoin. Не отправляйте через другие сети.</p>
-            <div class="crypto-details">
-              <div class="qr-holder"><img id="cryptoQr" alt="QR-код Bitcoin BTC" width="160" height="160"></div>
-              <div class="address-area">
-                <span class="field-label" data-i18n="addressLabel">Адрес для получения</span>
-                <code class="address" id="cryptoAddress" tabindex="0">bc1p0d5atcjr6qlp599wumpy9086qh0q4lhgev2xsmj5kpgz7y83r2aqre0em5</code>
-                <button class="copy-btn" id="copyCryptoAddress" type="button" data-i18n="copy">Копировать</button>
-                <span class="copy-state" id="copyResult" role="status" aria-live="polite"></span>
-                <p class="network-disclaimer" data-i18n="disclaimer">Проверьте сеть перед отправкой. Переводы необратимы, комиссии зависят от сети.</p>
-              </div>
-            </div>
-          </div>
-        </details>
       </div>
     </section>
   </main>
@@ -176,17 +124,11 @@ summary{cursor:pointer;list-style:none}summary::-webkit-details-marker{display:n
   (function(){
     'use strict';
     const words={
-      ru:{title:'Поддержать разработку',intro:'Выберите удобный способ перевода.',russia:'Из России',russiaDesc:'Рубли · СБП · российские карты',world:'Из других стран',worldDesc:'Международные карты · Fourthwall',crypto:'Криптовалюта',cryptoDesc:'Выберите монету и сеть',choose:'Монета и сеть',addressLabel:'Адрес для получения',copy:'Копировать',copied:'Адрес скопирован',copyError:'Не удалось скопировать. Выделите адрес вручную.',disclaimer:'Проверьте сеть перед отправкой. Переводы необратимы, комиссии зависят от сети.'},
-      en:{title:'Support development',intro:'Choose a transfer method.',russia:'From Russia',russiaDesc:'RUB · SBP · Russian bank cards',world:'From other countries',worldDesc:'International cards · Fourthwall',crypto:'Cryptocurrency',cryptoDesc:'Choose coin and network',choose:'Coin and network',addressLabel:'Receiving address',copy:'Copy address',copied:'Address copied',copyError:'Could not copy. Please select the address manually.',disclaimer:'Check the network before sending. Transfers are irreversible and network fees may apply.'}
+      ru:{title:'Поддержать разработку',intro:'Выберите удобный способ перевода.',russia:'Из России',russiaDesc:'Рубли · СБП · российские карты',world:'Из других стран',worldDesc:'Международные карты · Fourthwall'},
+      en:{title:'Support development',intro:'Choose a transfer method.',russia:'From Russia',russiaDesc:'RUB · SBP · Russian bank cards',world:'From other countries',worldDesc:'International cards · Fourthwall'}
     };
-    const cryptoAssets = {"btc":{"address":"bc1p0d5atcjr6qlp599wumpy9086qh0q4lhgev2xsmj5kpgz7y83r2aqre0em5","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMMAAADDAQAAAAAXBJgHAAAB8klEQVR42u2YMY7bMBBF3ywNSKmoG9AXieUuZwqgxHLke62UXIS+AdVRgKyfQt4u6QJuip1K4DR/vmb+H9LEn+P+wt/iI/PvMzIzO3M9Luf5AHA1s6YoNi9lmSbUcK/VOGkrzM7VwNuRX+pZXOJu5/f4P071Z+tD9Wjep0Ps3t+Br7a4VBgB2ryU27R/RUmDtHnFghzMZrXCEJczN5a2eZi9FOVAkrT5NWjza8jtflCSAzWwnOch1j/nYYL5QGkOElRT6oImrSHjV3JbkAOk1IVsWsmWXKw2L1VTWQRS1JQuyvgejb4PRTl4Qc31uLTBrIYuYMnF6rWsL8wrfkod1ciNWtZTl9VEU6X5m/V7+ct3v9jsUlFNBKqRDk5+iBmAwrOgNQBOQEe2dIlFFWn3hWqEoOk5ksr4sggGZXAxA0EjHYURSCsan0qojF8DVlyR9v470ZHhEqvSznTDT8mp+gFUU3occ0k9OAAd85exv+fJV7HOs9PyaSu9I2lKTpy8tA/nqews4JQtdWjSoHwCKpXuRGnzEvZWfmk9AGiTUzVpiBr9ELMV18Tcag3a3srPhfvA9+Q2dQFL3dOoyurBHv5w33dWly5xKXxzBWAeBNyCf21A4/vcmfZ1tZVUeD/Ydku4RI24qKdPl0NgH+9I/0HmN/c9iKi3ZEPBAAAAAElFTkSuQmCC","ru":"Только BTC в сети Bitcoin. Не отправляйте через другие сети.","en":"Only BTC on the Bitcoin network."},"eth":{"address":"0xab7814c21B47Bc2804E437e5930799c5fb2792bA","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK8AAACvAQAAAACj6bPYAAABjUlEQVR42u1XMW7cMBCcPR7A69ZlOgbIO0J1eVFKwZIh/yQfofIDl+n2HmCA6miA1qQ42ZULN2RldppmsJzhzkiIDw5P+PB8wZ+GwR0ABs4oA2soN6wxpZJlyAh+zY5lIK0t5QnAg4B3QIlar6Cce933eL383c49tHwjUW/ffj29/PjXxT5KlqgkJE/WR8tN5AI8XsvPcAZWke+tpyRJ7lpRotKOz9YXOwNDHuHXPLEArgNlBVeSiLpYiVqbrwKyogxcjElJkgvbU86BCY4FSvO7ttbyBGw0udcX0bSdAWwdHJvd4dhjrY/ttcyOiJjok5JMHRzLPAafMN1eZIlaQ4fwMghrgGRnXHOHvASCJ2ncMQa/62Ltp1wMwjn4pAt9n4VH8wmTva2gHlpWQDijxAMKrVeBZEe+3jnzKyu4K9c+DS8jMAEoEWPo0vCizqEIabdg6ZCXJd7mdYb2PfYdnuwirOCax04ND8Am+nuU+PT8p0vDGzICos7wa+5gHwCIwJHTUVu3Avn6v2wD/wdbHEVoYqBulgAAAABJRU5ErkJggg==","ru":"Только ETH в основной сети Ethereum. Не используйте другие сети.","en":"Only ETH on Ethereum mainnet. Do not send via another network."},"usdt-tron":{"address":"TCKW4m99HEsyx8fbWEVU75yyzjbDJjCwEw","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK8AAACvAQAAAACj6bPYAAABlklEQVR42u2XMXLbMBRE3xc0A6WCbgBdxGRylNyDCelh4TJHsuhcBDpBwA6eobgp7HQu0gCVf4dtgN2/8//CxAelAx/WJ/zfMNoBujBFLA+UN6zyS4JUWKebv5+d6KVUn/yjYZooBDNkx8rCHt/lNeLrlz+/UrsWW3YLD9EubewTpNLnAX8NG6WXUnX7rGYnRZ/WnzwlFrNLbZaSpD1M6Arx/Vhb2Cli2qK/AqXPA/Wv3PA7LmF5iAXG+ixxiS5s0f8zUqxtH9OE5uyW8jvfDZ1bzNhRBQYKjMkvmTa9vDKqECT67Kr3UnlUsTzglYeoKw0ci0taJBXChN8ZUwthC7hUes3ye6g/CqRZXtml0mtDi+YmLOlwAlzStcEokKboJQkYVXrNqr9JJtavcKOX2Wk53636ig5K/tmOUc9nl7Tj1CbhMcTS4VLpILZJeHA7vbzPoUYJL4OWDHbg8VI/+0yULmz4PWzRLy2yz1s9JVjnVNqEylHYbYuv32SX04P96KtH59WgO7vvvMCtHELttG6f/8s68F9rLxzXWyPb+AAAAABJRU5ErkJggg==","ru":"Только USDT в сети TRON (TRC20). Не используйте ERC20 или TON.","en":"Only USDT TRC20 on TRON. Do not use ERC20 or TON."},"usdt-ethereum":{"address":"0xab7814c21B47Bc2804E437e5930799c5fb2792bA","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK8AAACvAQAAAACj6bPYAAABjUlEQVR42u1XMW7cMBCcPR7A69ZlOgbIO0J1eVFKwZIh/yQfofIDl+n2HmCA6miA1qQ42ZULN2RldppmsJzhzkiIDw5P+PB8wZ+GwR0ABs4oA2soN6wxpZJlyAh+zY5lIK0t5QnAg4B3QIlar6Cce933eL383c49tHwjUW/ffj29/PjXxT5KlqgkJE/WR8tN5AI8XsvPcAZWke+tpyRJ7lpRotKOz9YXOwNDHuHXPLEArgNlBVeSiLpYiVqbrwKyogxcjElJkgvbU86BCY4FSvO7ttbyBGw0udcX0bSdAWwdHJvd4dhjrY/ttcyOiJjok5JMHRzLPAafMN1eZIlaQ4fwMghrgGRnXHOHvASCJ2ncMQa/62Ltp1wMwjn4pAt9n4VH8wmTva2gHlpWQDijxAMKrVeBZEe+3jnzKyu4K9c+DS8jMAEoEWPo0vCizqEIabdg6ZCXJd7mdYb2PfYdnuwirOCax04ND8Am+nuU+PT8p0vDGzICos7wa+5gHwCIwJHTUVu3Avn6v2wD/wdbHEVoYqBulgAAAABJRU5ErkJggg==","ru":"Только USDT в сети Ethereum (ERC20). Комиссии сети могут быть высокими.","en":"Only USDT ERC20 on Ethereum mainnet. Gas fees may be significant."},"usdt-ton":{"address":"UQB3yVvHGR4P4uFAcg9u2fRVhm9UNDT01_RHHCcqA3uidLYP","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMMAAADDAQAAAAAXBJgHAAACDUlEQVR42u2YMY7bMBRE37cMUB2VLh33IhGdIwVIs4ASeWMDe4wUOUU6e/ci1A3ojgJkTQpvuqQLuCmWJX/BwefMfA5N/HlNG/623ir/viIzsx1XmzccaeHBzLqq2LxU1D2q7S8Ll9g10lqxB2j1e0pPk9wKwUmHRO+Vat+P31OepVTUvQ5DLN9H4Ej7nF8BwSjgMc1fbJkuXyHoVBfBxaxVxwR+C+quZpuqTJQkrV5J0kGl97edVFMLUukhFJMSlhthdREATjokScuLKqiqRssDc7QFzt1jomegtVyXBwe5lSaV3itphVD1FrZwWbhs/GdaMNxP/+k76nLVHizBnfxB9F6pWCa4c1UmShKWRzllQok6pKoINsD1zl27q5Unv79tzrGrOhu5GYC0+gViHlNtP/BK7pwb0TPgpCVU9QMkHRIxD2BaAkBwp7oIMugsJWJuVGIeQol1/YDhh8UTSO9mIwK+1H2pdkzuobvezTsek7757XSxulrwEr1fQoExOeUh6FxZC3t0zmNy0kEFmkSsPJ3H27nFtNweaNRU4xYTuHUzhPbEEfB5et/Wz0wfM9Mcu+bcwhGvXJuJJeYxEbWE0nvVTSwvmSnm5sZEtwLVZyMA93fIlqlYHkJRVz9V+3247DgyW3Bn2/EKPGiSTn5PMS2hqh/8zkxhwcZpCXyw/VSeKvbA3v6R/oPKL5qRb38cuWPiAAAAAElFTkSuQmCC","ru":"Только нативный USDT в сети TON. Не используйте TRC20 или ERC20. Для этого личного адреса memo не требуется.","en":"Only native USDT jetton on TON. Do not use TRC20 or ERC20; no memo required for this self-custodial address."},"ton":{"address":"UQB3yVvHGR4P4uFAcg9u2fRVhm9UNDT01_RHHCcqA3uidLYP","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMMAAADDAQAAAAAXBJgHAAACDUlEQVR42u2YMY7bMBRE37cMUB2VLh33IhGdIwVIs4ASeWMDe4wUOUU6e/ci1A3ojgJkTQpvuqQLuCmWJX/BwefMfA5N/HlNG/623ir/viIzsx1XmzccaeHBzLqq2LxU1D2q7S8Ll9g10lqxB2j1e0pPk9wKwUmHRO+Vat+P31OepVTUvQ5DLN9H4Ej7nF8BwSjgMc1fbJkuXyHoVBfBxaxVxwR+C+quZpuqTJQkrV5J0kGl97edVFMLUukhFJMSlhthdREATjokScuLKqiqRssDc7QFzt1jomegtVyXBwe5lSaV3itphVD1FrZwWbhs/GdaMNxP/+k76nLVHizBnfxB9F6pWCa4c1UmShKWRzllQok6pKoINsD1zl27q5Unv79tzrGrOhu5GYC0+gViHlNtP/BK7pwb0TPgpCVU9QMkHRIxD2BaAkBwp7oIMugsJWJuVGIeQol1/YDhh8UTSO9mIwK+1H2pdkzuobvezTsek7757XSxulrwEr1fQoExOeUh6FxZC3t0zmNy0kEFmkSsPJ3H27nFtNweaNRU4xYTuHUzhPbEEfB5et/Wz0wfM9Mcu+bcwhGvXJuJJeYxEbWE0nvVTSwvmSnm5sZEtwLVZyMA93fIlqlYHkJRVz9V+3247DgyW3Bn2/EKPGiSTn5PMS2hqh/8zkxhwcZpCXyw/VSeKvbA3v6R/oPKL5qRb38cuWPiAAAAAElFTkSuQmCC","ru":"Только TON в сети TON.","en":"Only TON on the TON network."},"trx":{"address":"TCKW4m99HEsyx8fbWEVU75yyzjbDJjCwEw","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK8AAACvAQAAAACj6bPYAAABlklEQVR42u2XMXLbMBRE3xc0A6WCbgBdxGRylNyDCelh4TJHsuhcBDpBwA6eobgp7HQu0gCVf4dtgN2/8//CxAelAx/WJ/zfMNoBujBFLA+UN6zyS4JUWKebv5+d6KVUn/yjYZooBDNkx8rCHt/lNeLrlz+/UrsWW3YLD9EubewTpNLnAX8NG6WXUnX7rGYnRZ/WnzwlFrNLbZaSpD1M6Arx/Vhb2Cli2qK/AqXPA/Wv3PA7LmF5iAXG+ixxiS5s0f8zUqxtH9OE5uyW8jvfDZ1bzNhRBQYKjMkvmTa9vDKqECT67Kr3UnlUsTzglYeoKw0ci0taJBXChN8ZUwthC7hUes3ye6g/CqRZXtml0mtDi+YmLOlwAlzStcEokKboJQkYVXrNqr9JJtavcKOX2Wk53636ig5K/tmOUc9nl7Tj1CbhMcTS4VLpILZJeHA7vbzPoUYJL4OWDHbg8VI/+0yULmz4PWzRLy2yz1s9JVjnVNqEylHYbYuv32SX04P96KtH59WgO7vvvMCtHELttG6f/8s68F9rLxzXWyPb+AAAAABJRU5ErkJggg==","ru":"Только TRX в сети TRON.","en":"Only TRX on the TRON network."},"sol":{"address":"GcXZAevEYPN4HwqjNdJK6rTekTuPNUXjEhcf62i3x6PM","qr":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMMAAADDAQAAAAAXBJgHAAACE0lEQVR42u2YMY7bMBRE3zcN0B11A+oikbbKidIsIMfa9d5rLeci1A2oKhRga1IY6ZIu4KbY3xDgbz5mhvMHNPHnmnf8rT47/74jM7OnZZwPLMf2cOXFzJqqswWpEKxfLfpUwElbZXReDBhmP+W7Wd8w29MH8LN4rUcboc8fpZBnwzSi96byBGgLUulwyV8YYunCWdqCUq0J9rAYdOEby9fgJ+BuEGpi8KjsUoGT/CU8LlJFP2jurfXNAB3MdMuxrawDZSd/YQBw4jcQqaYjrbaeshO9jq02mOkqv0aX/CVY619xkz2FfazuBy/90jewHJt7WwDWHZXfQtIlnFUsu+QvuERXUQdI2SXAJV0YYoGTMNV0JMVjL+1g/Y6bDrbdW6nJFXVg2aXV5eeWK0DH21zbD3SL2oIee0GTzipU9QOZT7Zb9pQ+u+nwpbnbR2Aw5SEW0y2WDpeq7ka04RIdQyx9HpDyEEtXlQXTDX/WfvavEJninnDOVRMKwIOAcIt+45T8VheD7OTfmzf4kd9mrmEfuVZOaWMslk/JK5+SNkCTqrqyJG0QpXxKEFR7L2wAvcboN5wK4Zz8pLoJRSoyTVy526FjoNRO6yOlz0R6jQ9IilXVwRZGShdGAGLpNVKVhf3jsPyWWmAOPw1K3e0MJ8Gytl4Z1qdwTgfLVXPiYnZQ3LPsGKJ/ZaDUdCT7/Ef6Dzq/AOoaTie43OSSAAAAAElFTkSuQmCC","ru":"Только SOL в сети Solana.","en":"Only SOL on the Solana network."}};
     const ruBtn=document.getElementById('ruBtn');
     const enBtn=document.getElementById('enBtn');
-    const assetSelect=document.getElementById('cryptoAsset');
-    const address=document.getElementById('cryptoAddress');
-    const qr=document.getElementById('cryptoQr');
-    const note=document.getElementById('cryptoNetworkNote');
-    const state=document.getElementById('copyResult');
     let language='ru';
     function setLanguage(lang){
       language=lang==='en'?'en':'ru';
@@ -199,43 +141,13 @@ summary{cursor:pointer;list-style:none}summary::-webkit-details-marker{display:n
       enBtn.setAttribute('aria-pressed',String(language==='en'));
       document.title=language==='ru'?'Stanics — Поддержка':'Stanics — Support';
       document.querySelector('meta[name="description"]').content=language==='ru'?'Stanics — способы поддержки разработки.':'Stanics — ways to support development.';
-      note.textContent=cryptoAssets[assetSelect.value][language];
-      state.textContent='';
       try{localStorage.setItem('stanics-site-language',language)}catch(e){}
-    }
-    function setAsset(){
-      const info=cryptoAssets[assetSelect.value];
-      if(!info)return;
-      address.textContent=info.address;
-      qr.src=info.qr;
-      qr.alt='QR: '+assetSelect.selectedOptions[0].textContent;
-      note.textContent=info[language];
-      state.textContent='';
     }
     ruBtn.addEventListener('click',()=>setLanguage('ru'));
     enBtn.addEventListener('click',()=>setLanguage('en'));
-    assetSelect.addEventListener('change',setAsset);
-    document.getElementById('copyCryptoAddress').addEventListener('click',async()=>{
-      const value=address.textContent.trim();
-      let copied=false;
-      if(navigator.clipboard&&window.isSecureContext){try{await navigator.clipboard.writeText(value);copied=true}catch(e){}}
-      if(!copied){
-        const temp=document.createElement('textarea');
-        temp.value=value;temp.setAttribute('readonly','');
-        temp.style.cssText='position:fixed;top:-9999px;opacity:0';
-        document.body.appendChild(temp);temp.select();
-        try{copied=document.execCommand('copy')}catch(e){}
-        temp.remove();
-      }
-      if(!copied){
-        const sel=window.getSelection(),range=document.createRange();
-        range.selectNodeContents(address);sel.removeAllRanges();sel.addRange(range);
-      }
-      state.textContent=words[language][copied?'copied':'copyError'];
-    });
     let initial='ru';
     try{const saved=localStorage.getItem('stanics-site-language');if(saved==='ru'||saved==='en')initial=saved}catch(e){}
-    setAsset();setLanguage(initial);
+    setLanguage(initial);
   })();
   </script>
 </body>
